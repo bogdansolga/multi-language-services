@@ -67,6 +67,11 @@ public class BillingService implements InboundRestPort, InboundMessagingPort {
     }
 
     @Override
+    public String chargeCustomer(long customerId, long orderId) {
+        return System.currentTimeMillis() % 2 == 0 ? "The customer was charged" : "The charging has failed";
+    }
+
+    @Override
     @Transactional
     public List<PaymentDTO> getPaymentsForCustomer(long customerId) {
         return new ArrayList<>();

@@ -9,11 +9,15 @@ import net.multi.language.order.domain.model.Order;
 import net.multi.language.order.inbound.port.InboundMessagingPort;
 import net.multi.language.order.inbound.port.InboundRestPort;
 import net.multi.language.order.outbound.port.OutboundPersistencePort;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClient;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -26,6 +30,9 @@ public class OrderService implements InboundRestPort, InboundMessagingPort {
 
     private final OutboundMessagingPort outboundMessagingPort;
     private final OutboundPersistencePort outboundPersistencePort;
+
+    @Value("${billing.service.endpoint}")
+    private String billingServiceEndpoint;
 
     @Autowired
     public OrderService(final OutboundMessagingPort outboundMessagingPort,
@@ -47,6 +54,20 @@ public class OrderService implements InboundRestPort, InboundMessagingPort {
 
         CompletableFuture.runAsync(() -> publishChargeOrder(customerId, orderId, orderTotal))
                          .thenRunAsync(() -> publishOrderCreatedEvent(customerId, orderId));
+    }
+
+    @Override
+    public void chargeOrder(long customerId, long orderId) {
+        final RestClient restClient = RestClient.create();
+        final ResponseEntity<String> response = chargeOrder(customerId, orderId, restClient);
+        LOGGER.info("Got the response: {}", response.getBody());
+    }
+
+    private @NotNull ResponseEntity<String> chargeOrder(long customerId, long orderId, RestClient restClient) {
+        return restClient.post()
+                         .uri(billingServiceEndpoint + "/" + customerId + "/" + orderId)
+                         .retrieve()
+                         .toEntity(String.class);
     }
 
     // creating an order received from a messaging endpoint (upstream system, 3rd party application etc)

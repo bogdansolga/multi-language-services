@@ -24,4 +24,11 @@ public class OrdersController implements InboundAdapter {
 
         return ResponseEntity.ok("The order was successfully created");
     }
+
+    @GetMapping("/{customerId}/{orderId}")
+    public ResponseEntity<String> chargeOrder(@PathVariable long customerId, @PathVariable long orderId) {
+        inboundRestPort.chargeOrder(customerId, orderId);
+
+        return ResponseEntity.ok("The order request was successfully performed");
+    }
 }

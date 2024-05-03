@@ -41,8 +41,8 @@ spring:
 
   sql:
     init:
-      platform: h2
-      mode: embedded
+      platform: postgres
+      mode: never
 
 # logging settings
 logging:
@@ -56,3 +56,7 @@ logging:
 
   pattern:
     console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
+
+billing:
+  service:
+    endpoint: 'http://localhost:8081/billing'

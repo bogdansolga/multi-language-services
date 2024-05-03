@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface InboundRestPort extends InboundPort {
 
+    String chargeCustomer(long customerId, long orderId);
+
     List<PaymentDTO> getPaymentsForCustomer(long customerId);
 }

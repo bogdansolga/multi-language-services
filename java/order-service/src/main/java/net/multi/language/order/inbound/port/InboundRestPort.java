@@ -5,5 +5,7 @@ import net.multi.language.common.marker.port.InboundPort;
 
 public interface InboundRestPort extends InboundPort {
 
-    void createOrder(final OrderDTO orderDTO);
+    void createOrder(OrderDTO orderDTO);
+
+    void chargeOrder(long customerId, long orderId);
 }
