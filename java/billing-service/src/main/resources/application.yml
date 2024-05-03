@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   application:
@@ -28,8 +28,7 @@ logging:
     org:
       apache: warn
       hibernate: warn
-      springframework: warn
+      springframework: error
 
   pattern:
-    #console: '%clr([%thread] [%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'
     console: '%clr([%date{HH:mm:ss.SSS}]){faint} %clr(%2p) %clr(%-40.40logger{36}){cyan} %m%n%wex'

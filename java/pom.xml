@@ -6,26 +6,22 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.0</version>
+		<version>3.2.5</version>
 		<relativePath/>
 	</parent>
 
 	<groupId>net.safedata</groupId>
-	<artifactId>microservices.training</artifactId>
+	<artifactId>multi-language-services</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
-	<name>'Microservices' training hands-on examples</name>
-	<description>The hands-on examples for the 'Microservices' training</description>
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>reference-services</module>
-		<module>workshop-services</module>
+		<module>common-support</module>
+		<module>billing-service</module>
+		<module>order-service</module>
 	</modules>
 
 	<properties>
-		<cucumber.version>7.13.0</cucumber.version>
-
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 
@@ -37,32 +33,9 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>io.cucumber</groupId>
-				<artifactId>cucumber-java</artifactId>
-				<version>${cucumber.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>${h2.version}</version>
-			</dependency>
-
-			<dependency>
 				<groupId>net.safedata</groupId>
 				<artifactId>common-support</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>net.safedata</groupId>
-				<artifactId>common-support-new</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 			</dependency>
 
 			<dependency>

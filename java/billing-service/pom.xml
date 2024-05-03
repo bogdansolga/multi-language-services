@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>net.safedata</groupId>
-        <artifactId>reference-services</artifactId>
+        <artifactId>multi-language-services</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
